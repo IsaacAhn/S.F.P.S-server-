@@ -10,7 +10,7 @@ router.get('/', function(req, res){
     .create({
        body: '스마트 화재 예방 서비스 MMS 테스트',
        from: config.Twilio_NUMBER,
-       mediaUrl: 'https://watermark.lovepik.com/photo/10020/0467.jpg_wh1200.jpg',
+       mediaUrl: config.Address + 'externalFile.jpg',
        to: config.My_NUMBER
      })
     .then(message => console.log(message.sid));
