@@ -12,8 +12,8 @@ const control = require('./routes/control');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('static'));
-app.use('/mms', mms);
-app.use('/fcm', fcm);
+// app.use('/mms', mms);
+// app.use('/fcm', fcm);
 app.use('/control', control);
 
 app.listen(config.PORT, function(){
