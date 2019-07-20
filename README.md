@@ -2,9 +2,7 @@
 - 스마트 화재 예방 서비스(Server)
 
 ## Description
-- 아두이노 제어
-- 라즈베리파이와 DB 및 Web과의 통신
-- FCM, MMS 전송
+- 아두이노를 제어하고 DB와의 연동 및 웹과의 통신을 하는 라즈베리파이 서버
 
 ## Tech/framework used
 -  Node.js + express
