@@ -3,6 +3,9 @@ const app = express();
 const bodyParser = require('body-parser');
 const config = require('./config.js');
 
+//functions
+const db = require('./functions/db');
+
 // routes
 const mms = require('./routes/mms');
 const fcm = require('./routes/fcm');
