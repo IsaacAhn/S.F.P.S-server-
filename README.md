@@ -19,10 +19,12 @@
 > **20190617**  changelog :
 >  - 아두이노와 JSON통신 추가
 
+> **20190722**  changelog :
+>  - DB연동
+
 
 
 ## TODO
 
 -  inception v3 서버와 통신
-- DB연동
 - 아두이노 제어
