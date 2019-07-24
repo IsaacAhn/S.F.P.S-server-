@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const config = require('./config.js');
 
 //functions
-const db = require('./functions/db');
+const opencv = require('./functions/firedetect');
 
 // routes
 const mms = require('./routes/mms');
@@ -21,4 +21,5 @@ app.use('/control', control);
 
 app.listen(config.PORT, function(){
    console.log(`Server Running ${config.PORT} Port!`);
+   opencv.firedetection();
 });
