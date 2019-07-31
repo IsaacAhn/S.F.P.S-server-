@@ -15,6 +15,7 @@
     "mysql": "github:mysqljs/mysql",
     "save": "^2.4.0",
     "serialport": "^7.1.5",
-    "twilio": "^3.30.3"
+    "twilio": "^3.30.3",
+    "websocket": "^1.0.29"
   }
 }
