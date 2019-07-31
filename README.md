@@ -25,6 +25,9 @@
 > **20190724**  changelog :
 >  - opencv 추가
 
+> **20190731**  changelog :
+>  - websocket 추가
+
 
 
 ## TODO
