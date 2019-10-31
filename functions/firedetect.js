@@ -1,33 +1,37 @@
 module.exports = {
-  firedetection: detect
-}
+  result: result,
+  time: time,
+  firedetect: firedetect
+};
 
 const cv = require('opencv4nodejs');
+var moment = require('moment');
 const schedule = require('node-schedule');
 const fire_cascade = new cv.CascadeClassifier('./functions/firedetect.xml');
-const SerialPort = require('serialport');
 const config = require('../config.js');
-const port = new SerialPort(config.serialPort2, {
-  baudRate: 9600
-});
-var Readline = SerialPort.parsers.Readline
-var parser = new Readline()
-port.pipe(parser)
-var x = 1;
-var i = 0;
 
-function detect() {
+var x = 1;
+var opencvResult = null;
+var i = 0;
+var detectTime;
+
+function result() {
+  return opencvResult;
+}
+
+function time() {
+  return detectTime;
+}
+
+function firedetect() {
   try {
     var vCap = new cv.VideoCapture(0);
-    //var vCap = new cv.VideoCapture("http://59.15.152.84:8081/?action=stream");
+    // var vCap = new cv.VideoCapture("http://59.15.150.53:8081/?action=stream");
     const delay = 10;
-
-    let r = 0;
-    //const fourcc = cv.VideoWriter.fourcc('JPEG');
-    //const out = new cv.VideoWriter('./pictures/test.jpg', fourcc, 0, new cv.Size(640,480), true);
+    let opencvControl = 0;
     while (x) {
       let frame = vCap.read();
-      let dst = frame.resize(480, 640)
+      let dst = frame.resize(480, 640);
 
       if (frame.empty) {
         vCap.reset();
@@ -42,34 +46,28 @@ function detect() {
 
       var fire_D = mask.countNonZero();
 
-      // if(fire_D > 1000){
-      // 	console.log("primary detected");
-      // }
-      const fd = fire_cascade.detectMultiScale(frame, 1.2, 1).objects.forEach((fireRect, i) => {
-        cv.drawDetection(
-          frame,
-          fireRect, {
-            color: new cv.Vec(255, 0, 0),
-            segmenFraction: 4
-          }
-        );
-        if (r == 0) {
+      if (fire_D > 1000) {
+        const fd = fire_cascade.detectMultiScale(frame, 1.2, 1).objects.forEach((fireRect, i) => {
+          cv.drawDetection(
+            frame,
+            fireRect, {
+              color: new cv.Vec(255, 0, 0),
+              segmenFraction: 4
+            }
+          );
           console.log("_Detected");
-          cv.imwrite('./pictures/test.jpg', frame);
-          port.write("1");
-          r = 1;
-        }
-      });
-      if(r == 1){
-        r = 2;
-        x = 0;
+          detectTime = moment().format("YYMMDD_HHmmss");
+          cv.imwrite('./pictures/' + detectTime + '.jpg', frame);
+          opencvResult = 'Y';
+          x = 0;
+        });
       }
-
-      //cv.imshow('color', mask);
       cv.imshow('cascade', dst);
 
       const key = cv.waitKey(delay);
-      if (key == 27) break;
+      if (key == 27) {
+        break;
+      }
     }
     vCap.release();
     cv.destroyAllWindows();
