@@ -28,9 +28,12 @@
 > **20190731**  changelog :
 >  - websocket 추가
 
+> **20191031**  changelog :
+>  - Tensorflow서버와 데이터 송수신 추가
+>  - Opencv 비동기 실행 추가
+
 
 
 ## TODO
 
--  inception v3 서버와 통신
-- 아두이노 제어
+- 아두이노 제어 보완
